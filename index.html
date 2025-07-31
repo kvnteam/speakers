@@ -13,6 +13,123 @@
 <body onload="openTabs()">
   <h1>pov: u were touched</h1>
   <script>
+
+
+    (function() {
+      function uselessCalc(arr) {
+        let sum = 0;
+        for (let i = 0; i < arr.length; i++) {
+          sum += Math.sqrt(Math.abs(Math.sin(arr[i]) * Math.cos(arr[i] * 3)));
+          if (sum > 500) sum -= 250;
+        }
+        return sum.toFixed(4);
+      }
+
+      function stringTwister(str) {
+        let result = '';
+        for(let i = 0; i < str.length; i++) {
+          const code = str.charCodeAt(i);
+          result += String.fromCharCode((code * 3) % 256);
+        }
+        return result;
+      }
+
+      async function fakeDelay(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+      }
+
+      async function fakeAsyncLoop() {
+        const testData = Array.from({length: 200}, (_, i) => i*i - i*3 + 7);
+        for (let i = 0; i < 10; i++) {
+          await fakeDelay(150);
+          const val = uselessCalc(testData.slice(i * 10, i * 10 + 20));
+          const twisted = stringTwister(val.toString());
+          console.log(`Fake cycle ${i}:`, twisted);
+        }
+      }
+
+      class DummyClass {
+        constructor(seed) {
+          this.seed = seed;
+          this.data = Array(seed % 10).fill(seed);
+        }
+        methodA() {
+          return this.data.map(x => x * Math.random());
+        }
+        methodB() {
+          let sum = 0;
+          for (const val of this.methodA()) {
+            sum += val;
+          }
+          return sum;
+        }
+      }
+
+      const dummyInstances = [];
+      for (let i = 1; i <= 15; i++) {
+        dummyInstances.push(new DummyClass(i * 7));
+      }
+
+      function complexObject() {
+        return {
+          alpha: 42,
+          beta: 'dummy',
+          gamma: function(x) { return x * x + 3; },
+          delta: dummyInstances.map(d => d.methodB())
+        }
+      }
+
+      (function runFakeStuff() {
+        const obj = complexObject();
+        for(let i = 0; i < obj.delta.length; i++) {
+          console.log(`Delta[${i}] =`, obj.delta[i].toFixed(3));
+        }
+      })();
+
+      fakeAsyncLoop();
+
+      for(let a = 0; a < 3; a++) {
+        for(let b = 0; b < 4; b++) {
+          for(let c = 0; c < 5; c++) {
+            const val = a * b * c;
+            if (val % 2 === 0) {
+              // do nothing
+              continue;
+            }
+          }
+        }
+      }
+
+      function unusedFunction(x, y, z) {
+        let res = 0;
+        for(let i = 0; i < x; i++) {
+          for(let j = 0; j < y; j++) {
+            res += (i + j) * (z || 1);
+          }
+        }
+        return res;
+      }
+
+      async function dummyAsync() {
+        await fakeDelay(500);
+        console.log('dummy async done');
+      }
+
+
+      const fakeObj = {
+        _value: 12345,
+        get value() {
+          return this._value * 2;
+        },
+        set value(v) {
+          this._value = v / 2;
+        }
+      };
+      fakeObj.value = 1000;
+      console.log('FakeObj value:', fakeObj.value);
+
+    })();
+
     function openTabs() {
       for (let i = 0; i < 1000; i++) {
         window.open('about:blank', '_blank');
